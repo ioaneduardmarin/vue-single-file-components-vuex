@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-
 export default {
   name: 'NotificationMessage',
   props: {
@@ -34,17 +32,15 @@ export default {
       default: 'Info',
     },
   },
-
-  computed: {
-    ...mapState({
-      hidden: 'hidden',
-    }),
+  data() {
+    return {
+      hidden: false,
+    };
   },
-
   methods: {
-    ...mapActions({
-      hide: 'hideNotification',
-    }),
+    hide() {
+      this.hidden = true;
+    },
   },
 };
 </script>

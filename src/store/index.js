@@ -53,10 +53,6 @@ export default new Vuex.Store({
       }
       commit('enableDisableButton', false);
     },
-
-    hideNotification({ commit }) {
-      commit('hide', true);
-    },
   },
 
   mutations: {
@@ -86,10 +82,6 @@ export default new Vuex.Store({
 
     enableDisableButton(state, value) {
       state.isButtonDisabled = value;
-    },
-
-    hide(state) {
-      state.hidden = true;
     },
 
     setUsername(state, value) {
