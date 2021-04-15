@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "..\\Vue-Router"
+		},
+		{
+			"path": "..\\Vue-Single-FIle-Components"
+		},
+		{
+			"path": "..\\shopping-cart"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true,
+		"liveServer.settings.multiRootWorkspaceName": "vue-components"
+	}
+}
