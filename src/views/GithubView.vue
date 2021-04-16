@@ -26,9 +26,8 @@
         :user="user"
       />
     </div>
-    <div class="notificationDiv">
+    <div class="notificationDiv" v-if="wasUserFound === false">
       <notification-message
-        v-if="wasUserFound === false"
         type="error"
         header="Eroare!"
       >

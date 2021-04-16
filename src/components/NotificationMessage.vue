@@ -12,7 +12,7 @@
         @click="hide"
       />
       <div class="header">
-        {{ header }}
+        <p>{{ $t('messages.errorTitle') }}</p>
       </div>
       <slot />
     </div>
@@ -22,6 +22,12 @@
 <script>
 export default {
   name: 'NotificationMessage',
+  data() {
+    this.$i18n.locale = 'en';
+    return {
+      locale: 'en',
+      hidden: false };
+  },
   props: {
     type: {
       type: String,
@@ -32,11 +38,6 @@ export default {
       default: 'Info',
     },
   },
-  data() {
-    return {
-      hidden: false,
-    };
-  },
   methods: {
     hide() {
       this.hidden = true;
@@ -46,11 +47,11 @@ export default {
 </script>
 
 <style scoped>
-.fade-leave-active {
- transition: opacity 0;
+.fade-enter-active, .fade-leave-active {
+ transition: opacity 0.5s;
 }
 
- .fade-leave-to {
+ .fade-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>

@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">
         GitHub Profiles
-      </router-link> |
+      </router-link> 
     </div>
     <router-view />
   </div>
