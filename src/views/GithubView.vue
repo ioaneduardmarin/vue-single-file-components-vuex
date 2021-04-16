@@ -3,12 +3,12 @@
     id="github-view"
     class="ui container"
   >
-    <h1>GitHub Profiles</h1>
+    <h1>{{$t('messages.appTitle')}}</h1>
     <div class="ui fluid action input inputDiv">
       <input
         v-model="username"
         type="text"
-        placeholder="Search..."
+        :placeholder="$t('messages.inputPlaceholder')"
         @change="inputValidation"
       >
       <button
@@ -16,7 +16,7 @@
         class="ui button"
         @click="searchUser(username)"
       >
-        Search
+        {{$t('messages.buttonText')}}
       </button>
     </div>
     <div class="ui cards cardsDiv">
@@ -29,7 +29,6 @@
     <div class="notificationDiv" v-if="wasUserFound === false">
       <notification-message
         type="error"
-        header="Eroare!"
       >
         <p>
           {{ errorMessage }}

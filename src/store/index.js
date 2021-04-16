@@ -1,13 +1,14 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import axios from 'axios';
+import i18n from '@/i18n/i18nInstance';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { },
-
   state: {
+    currentLanguage: 'ro',
+    languages: ['en', 'ro'],
     users: [],
     usernames: [],
     username: '',
@@ -19,6 +20,8 @@ export default new Vuex.Store({
   },
 
   getters: {
+    getLanguages: state => state.languages,
+
     inputValidation: (state) => {
       if ((state.username.trim() || '') === '') {
         return false;
@@ -31,6 +34,10 @@ export default new Vuex.Store({
     getGithubUser: state => axios.get(`https://api.github.com/users/${state.username}`) },
 
   actions: {
+    changeLanguage({ commit }, language) {
+      commit('changeCurrentLanguge', language);
+    },
+
     async searchUser({ state, getters, commit }, value) {
       commit('setUsername', value);
       commit('showProperNotification', null);
@@ -56,6 +63,11 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    changeCurrentLanguge(state, language) {
+      state.currentLanguage = language;
+      i18n.locale = language;
+    },
+
     showProperNotification(state, value) {
       state.wasUserFound = value;
     },

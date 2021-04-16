@@ -1,13 +1,43 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">
-        GitHub Profiles
-      </router-link> 
+      <select v-model="selected" @change="changeLanguage(selected)">
+      <option disabled value="">{{$t('messages.selectPlaceholder')}}</option>
+      <option 
+      v-for="language in getLanguages"
+      :key="language"
+      :value="language"
+      >{{language}}</option>
+    </select>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import { mapState, mapGetters, mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      selected: '',
+    };
+  },
+  computed: {
+    ...mapState({
+      currentLanguage: 'currentLanguage',
+    }),
+
+    ...mapGetters({
+      getLanguages: 'getLanguages',
+    }) },
+
+  methods: { ...mapActions({
+    changeLanguage: 'changeLanguage',
+  }),
+  },
+};
+</script>
 
 <style>
 #app {

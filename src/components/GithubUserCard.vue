@@ -9,7 +9,7 @@
         class="header"
       >{{ user.name }}</a>
       <div class="meta">
-        <span class="date">Joined in {{ user.created_at }}</span>
+        <span class="date">{{$t('messages.joinedInText')}} {{ user.created_at }}</span>
       </div>
       <div class="description">
         {{ user.bio }}
@@ -18,7 +18,7 @@
     <div class="extra content">
       <a :href="`https://github.com/${user.login}?tab=followers`">
         <i class="user icon" />
-        {{ user.followers }} Friends
+        {{$tc('messages.friendsText', user.followers )}}
       </a>
     </div>
   </div>

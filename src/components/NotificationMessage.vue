@@ -23,19 +23,13 @@
 export default {
   name: 'NotificationMessage',
   data() {
-    this.$i18n.locale = 'en';
     return {
-      locale: 'en',
       hidden: false };
   },
   props: {
     type: {
       type: String,
       default: 'info',
-    },
-    header: {
-      type: String,
-      default: 'Info',
     },
   },
   methods: {
