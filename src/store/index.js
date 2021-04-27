@@ -22,14 +22,14 @@ export default new Vuex.Store({
   getters: {
     getLanguages: state => state.languages,
 
-    inputValidation: (state) => {
-      if ((state.username.trim() || '') === '') {
-        return false;
-      }
-      return true;
-    },
+    // getInputValidation: (state) => {
+    //   if ((state.username.trim() || '') === '') {
+    //     return false;
+    //   }
+    //   return true;
+    // },
 
-    reversedUsers: state => state.users.slice(0).reverse(),
+    getReversedUsers: state => state.users.slice(0).reverse(),
 
     getGithubUser: state => axios.get(`https://api.github.com/users/${state.username}`) },
 
@@ -41,9 +41,9 @@ export default new Vuex.Store({
     async searchUser({ state, getters, commit }, value) {
       commit('setUsername', value);
       commit('showProperNotification', null);
-      if (!getters.inputValidation) {
-        return;
-      }
+      // if (!getters.getInputValidation) {
+      //   return;
+      // }
       if (state.usernames.includes(state.username)) {
         return;
       }

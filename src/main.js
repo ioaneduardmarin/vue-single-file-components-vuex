@@ -5,6 +5,9 @@ import i18nInstance from '@/i18n/i18nInstance';
 import App from '@/App';
 import router from './router';
 
+import './validation';
+
+
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
