@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
+      <ul class="nav-links">
+      <li class="links">
+        <router-link to="/"> Useri Github </router-link>
+      </li>| 
+      <li class="links">
+        <router-link to="/repositories"> Depozite Github </router-link>
+      </li>
+    </ul>
       <select v-model="selected" @change="changeLanguage(selected)">
       <option disabled value="">{{$t('messages.selectPlaceholder')}}</option>
       <option 
@@ -46,6 +54,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.links {
+  display: inline-flex;
+  margin-right: 20px;
 }
 
 #nav {

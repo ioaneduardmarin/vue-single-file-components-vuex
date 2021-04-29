@@ -10,6 +10,14 @@ const routes = [
     name: 'githubView',
     component: githubView,
   },
+  {
+    path: '/repositories',
+    name: 'githubRepoView',
+    component: () =>
+    import(
+      /* webpackChunkName: "githubRepoView" */ '@/views/GithubRepoView',
+    ),
+  },
 ];
 
 const router = new VueRouter({
