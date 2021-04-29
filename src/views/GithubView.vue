@@ -1,6 +1,6 @@
 <template>
   <div id="github-view" class="ui container">
-    <h1>{{ $t("messages.appTitle") }}</h1>
+    <h1>{{ $t("messages.appTitleUsers") }}</h1>
     <ValidationObserver v-slot="{ handleSubmit, invalid }" ref="form" >
       <form @submit.prevent="handleSubmit(onSubmit)" class="inputForm">
         <ValidationProvider
@@ -16,19 +16,19 @@
               class="form-control"
               v-model="username"
               type="text"
-              :placeholder="$t('messages.inputPlaceholder')"
+              :placeholder="$t('messages.usernameInputPlaceholder')"
             />
             <button
               type="Submit"
-              :disabled="isButtonDisabled || invalid"
+              :disabled="isUserSearchButtonDisabled || invalid"
               class="ui button form-control"
             >
               {{ $t("messages.buttonText") }}
             </button>
           </div>
           <div v-if="errors.length !== 0" class="big ui animated fade button" tabindex="0">
-            <div class="visible content">{{$t('messages.validationMessage')}}</div>
-            <div class="hidden content">{{$t('messages.validationInstruction')}}</div>
+            <div class="visible content">{{$t('messages.usernameValidationMessage')}}</div>
+            <div class="hidden content">{{$t('messages.usernameValidationInstruction')}}</div>
           </div>
         </ValidationProvider>
       </form>
@@ -43,7 +43,7 @@
     <div class="notificationDiv" v-if="wasUserFound === false">
       <notification-message type="error">
         <p>
-          {{ errorMessage }}
+          {{ usernameErrorMessage }}
         </p>
       </notification-message>
     </div>
@@ -53,8 +53,10 @@
 <script>
 import GithubUserCard from '@/components/GithubUserCard';
 import NotificationMessage from '@/components/NotificationMessage';
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
+
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers('githubUsers');
 
 export default {
   name: 'GithubView',
@@ -72,23 +74,22 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      getInputValidation: 'getInputValidation',
-      getReversedUsers: 'getReversedUsers',
-    }),
+    ...mapGetters([
+      'getReversedUsers',
+    ]),
 
-    ...mapState({
-      isUsernameNullOrEmpty: 'isUsernameNullOrEmpty',
-      isButtonDisabled: 'isButtonDisabled',
-      wasUserFound: 'wasUserFound',
-      errorMessage: 'errorMessage',
-    }),
+    ...mapState([
+      'isUsernameNullOrEmpty',
+      'isUserSearchButtonDisabled',
+      'wasUserFound',
+      'usernameErrorMessage',
+    ]),
   },
 
   methods: {
-    ...mapActions({
-      searchUser: 'searchUser',
-    }),
+    ...mapActions([
+      'searchUser',
+    ]),
     onSubmit() {
       this.searchUser(this.username);
     },

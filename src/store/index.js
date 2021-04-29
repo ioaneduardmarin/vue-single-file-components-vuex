@@ -2,12 +2,14 @@ import Vuex from 'vuex';
 import Vue from 'vue';
 import i18n from '@/i18n/i18nInstance';
 import githubUsers from './modules/githubUsers';
+import githubRepos from './modules/githubRepos';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     githubUsers,
+    githubRepos,
   },
 
   state: {

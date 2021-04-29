@@ -1,49 +1,32 @@
 <template>
   <div id="github-view" class="ui container">
-    <h1>{{ $t("messages.appTitle") }}</h1>
-    <ValidationObserver v-slot="{ handleSubmit, invalid }" ref="form" >
+    <h1>{{ $t("messages.appTitleRepos") }}</h1>
+    <ValidationObserver v-slot="{ handleSubmit, invalid }" ref="form">
       <form @submit.prevent="handleSubmit(onSubmit)" class="inputForm">
-        <ValidationProvider
-          name="Name"
-          :rules="{
-            required: true,
-            regex: /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/gim,
-          }"
-          v-slot="{ errors }"
-        >
-          <div class="form-group ui fluid action input inputDiv">
-            <input
-              class="form-control"
-              v-model="username"
-              type="text"
-              :placeholder="$t('messages.inputPlaceholder')"
-            />
-            <button
-              type="Submit"
-              :disabled="isButtonDisabled || invalid"
-              class="ui button form-control"
-            >
-              {{ $t("messages.buttonText") }}
-            </button>
-          </div>
-          <div v-if="errors.length !== 0" class="big ui animated fade button" tabindex="0">
-            <div class="visible content">{{$t('messages.validationMessage')}}</div>
-            <div class="hidden content">{{$t('messages.validationInstruction')}}</div>
-          </div>
-        </ValidationProvider>
+        <div class="form-group ui fluid action input inputDiv">
+          <input
+            class="form-control"
+            v-model="searchCriteria"
+            type="text"
+            :placeholder="$t('messages.repoSearchInputPlaceholder')"
+          />
+          <button
+            type="Submit"
+            :disabled="isRepoSearchButtonDisabled || invalid"
+            class="ui button form-control"
+          >
+            {{ $t("messages.buttonText") }}
+          </button>
+        </div>
       </form>
     </ValidationObserver>
-    <div class="ui cards cardsDiv">
-      <GithubUserCard
-        v-for="user in getReversedUsers"
-        :key="user"
-        :user="user"
-      />
+    <div class="ui items itemsDiv">
+      <GithubRepoItem v-for="repo in repos" :key="repo" :repo="repo" />
     </div>
-    <div class="notificationDiv" v-if="wasUserFound === false">
+    <div class="notificationDiv" v-if="wasRepoSearched === false">
       <notification-message type="error">
         <p>
-          {{ errorMessage }}
+          {{ repoErrorMessage }}
         </p>
       </notification-message>
     </div>
@@ -51,46 +34,43 @@
 </template>
 
 <script>
-import GithubUserCard from '@/components/GithubUserCard';
+import GithubRepoItem from '@/components/GithubRepoItem';
 import NotificationMessage from '@/components/NotificationMessage';
-import { mapState, mapGetters, mapActions } from 'vuex';
-import { ValidationObserver, ValidationProvider } from 'vee-validate';
+import { createNamespacedHelpers } from 'vuex';
+import { ValidationObserver } from 'vee-validate';
+
+const { mapState, mapActions } = createNamespacedHelpers('githubRepos');
 
 export default {
-  name: 'GithubView',
+  name: 'GithubRepoView',
   components: {
-    GithubUserCard,
+    GithubRepoItem,
     NotificationMessage,
-    ValidationProvider,
     ValidationObserver,
   },
 
   data() {
     return {
-      username: '',
+      searchCriteria: '',
     };
   },
 
   computed: {
-    ...mapGetters({
-      getInputValidation: 'getInputValidation',
-      getReversedUsers: 'getReversedUsers',
-    }),
-
     ...mapState({
-      isUsernameNullOrEmpty: 'isUsernameNullOrEmpty',
-      isButtonDisabled: 'isButtonDisabled',
-      wasUserFound: 'wasUserFound',
-      errorMessage: 'errorMessage',
+      repos: state => state.repos,
     }),
+    ...mapState([
+      'isSearchCriteriaNullOrEmpty',
+      'isRepoSearchButtonDisabled',
+      'wasRepoSearched',
+      'repoErrorMessage',
+    ]),
   },
 
   methods: {
-    ...mapActions({
-      searchUser: 'searchUser',
-    }),
+    ...mapActions(['searchRepo']),
     onSubmit() {
-      this.searchUser(this.username);
+      this.searchRepo(this.searchCriteria);
     },
   },
 };
@@ -113,11 +93,11 @@ export default {
   margin: 16px 0px 16px 0px;
 }
 
-.cardsDiv {
+.itemsDiv {
   margin: 16px 0px 16px 0px;
 }
 
-.inputForm{
+.inputForm {
   margin: 16px 0px 16px 0px;
 }
 </style>

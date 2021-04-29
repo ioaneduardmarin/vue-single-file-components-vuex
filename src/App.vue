@@ -3,14 +3,14 @@
     <div id="nav">
       <ul class="nav-links">
       <li class="links">
-        <router-link to="/"> Useri Github </router-link>
+        <router-link id="githubUsersViewLink" to="/">{{$t('messages.appTitleUsers')}} </router-link>
       </li>| 
       <li class="links">
-        <router-link to="/repositories"> Depozite Github </router-link>
+        <router-link id="githubReposViewLink" to="/repositories">{{$t('messages.appTitleRepos')}} </router-link>
       </li>
     </ul>
       <select v-model="selected" @change="changeLanguage(selected)">
-      <option disabled value="">{{$t('messages.selectPlaceholder')}}</option>
+      <option disabled value="">{{$t('messages.selectLanguagePlaceholder')}}</option>
       <option 
       v-for="language in getLanguages"
       :key="language"
@@ -56,9 +56,16 @@ export default {
   color: #2c3e50;
 }
 
-.links {
+.links{
   display: inline-flex;
-  margin-right: 20px;
+}
+
+#githubUsersViewLink {
+  margin-right: 10px;
+}
+
+#githubReposViewLink {
+  margin-left: 10px;
 }
 
 #nav {
