@@ -13,55 +13,16 @@ export default {
 storiesOf('NotificationMessage', module)
   .add('ErrorMessage', () => ({
     components: { NotificationMessage },
-    template: '<NotificationMessage>Eroare</NotificationMessage>',
-    i18n: new VueI18n({
-      locale: 'ro',
-      messages: {
-        en: {
-          messages: { errorTitle: 'Error' },
-        },
-        ro: {
-          messages: { errorTitle: 'Eroare' },
-        },
-      },
-    }),
+    template: '<NotificationMessage type="error">Eroare</NotificationMessage>',
   }));
 
 storiesOf('NotificationMessage', module)
   .add('NotFoundMessage', () => ({
     components: { NotificationMessage },
-    template: '<NotificationMessage>Eroare</NotificationMessage>',
-    i18n: new VueI18n({
-      locale: 'en',
-      messages: {
-        en: {
-          messages: { errorTitle: 'Error' },
-        },
-        ro: {
-          messages: { errorTitle: 'Eroare' },
-        },
-      },
-    }),
+    template: '<NotificationMessage type="error">Eroare</NotificationMessage>',
   }));
 
 export const simpleNotification = () => ({
-  i18n: new VueI18n({
-    locale: 'en',
-    messages: {
-      en: {
-        messages: { errorTitle: 'Error' },
-      },
-      ro: {
-        messages: { errorTitle: 'Eroare' },
-      },
-    },
-  }),
-  props: {
-    type: {
-      type: String,
-      default: 'error',
-    },
-  },
   render() {
     return <NotificationMessage type="error">Mesaj de test</NotificationMessage>;
   },

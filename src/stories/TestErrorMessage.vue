@@ -1,5 +1,5 @@
 <template>
-<NotificationMessage>
+<NotificationMessage type="error">
     Test Error Message
 </NotificationMessage>
 </template>
