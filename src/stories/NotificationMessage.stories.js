@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import { action } from '@storybook/addon-actions';
 import TestErrorMessage from './TestErrorMessage.vue';
 import NotificationMessage from '../components/NotificationMessage.vue';
 
@@ -9,10 +10,16 @@ export default {
   title: 'NotificationMessage',
 };
 
-export const simpleNotification = () => ({
+export const JSXNotificationMessageStory = () => ({
+  props: {
+    type: {
+      type: String,
+      default: 'error',
+    },
+  },
   render() {
-    return <NotificationMessage type="error">Mesaj de test</NotificationMessage>;
+    return <NotificationMessage onClick={action('clicked')} type="error">JSX</NotificationMessage>;
   },
 });
 
-export const TestErrorMessageStory = () => TestErrorMessage;
+export const SFCNotificationMessageStory = () => TestErrorMessage;

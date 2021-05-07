@@ -26,14 +26,15 @@
     "vue-i18n": "^8.24.4",
     "vue-loader": "^15.9.6",
     "vue-router": "^3.2.0",
-    "vuex": "^3.6.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.14.0",
+    "vuex": "^3.6.2",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/cli": "^6.2.9",
+    "@storybook/addon-viewport": "^6.2.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
