@@ -40,6 +40,7 @@ export const globalTypes = {
         { value: 'es', right: ':es:', title: 'Español' },
         { value: 'zh', right: ':cn:', title: '中文' },
         { value: 'kr', right: ':kr:', title: '한국어' },
+        { value: 'ro', right: ':ro:', title: 'Romana' },
       ],
     },
   },

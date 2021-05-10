@@ -14,16 +14,23 @@ export default new Vuex.Store({
 
   state: {
     currentLanguage: 'ro',
+    currentLocale: 'ro',
     languages: ['en', 'ro'],
+    // de proba
+    locales: ['en', 'fr', 'es', 'zh', 'kr', 'ro'],
   },
 
   getters: {
     getLanguages: (state) => state.languages,
+    getLocales: (state) => state.locales,
   },
 
   actions: {
     changeLanguage({ commit }, language) {
       commit('changeCurrentLanguge', language);
+    },
+    changeLocale({ commit }, locale) {
+      commit('changeCurrentLocale', locale);
     },
   },
 
@@ -31,6 +38,10 @@ export default new Vuex.Store({
     changeCurrentLanguge(state, language) {
       state.currentLanguage = language;
       i18n.locale = language;
+    },
+    changeCurrentLocale(state, locale) {
+      state.currentLocale = locale;
+      i18n.locale = locale;
     },
   },
 });

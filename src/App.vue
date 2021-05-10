@@ -1,32 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <ul class="nav-links">
-      <li class="links">
-        <router-link id="githubUsersViewLink" to="/">{{$t('messages.appTitleUsers')}} </router-link>
-      </li>|
-      <li class="links">
-        <router-link id="githubReposViewLink" to="/repositories">
-        {{$t('messages.appTitleRepos')}} </router-link>
-      </li>
-    </ul>
-      <select v-model="selected" @change="changeLanguage(selected)">
-      <option disabled value="">{{$t('messages.selectLanguagePlaceholder')}}</option>
-      <option
-      v-for="language in getLanguages"
-      :key="language"
-      :value="language"
-      >{{language}}</option>
-    </select>
+  <VueI18nProvider v-model="selected" v-slot="{ i18n }">
+    <div id="app">
+      <div id="nav">
+        <ul class="nav-links">
+          <li class="links">
+            <router-link id="githubUsersViewLink" to="/"
+              >{{ $t("messages.appTitleUsers") }}
+            </router-link>
+          </li>
+          |
+          <li class="links">
+            <router-link id="githubReposViewLink" to="/repositories">
+              {{ $t("messages.appTitleRepos") }}
+            </router-link>
+          </li>
+        </ul>
+        <select v-model="selected" @change="i18n.locale = selected">
+          <option disabled value="">
+            {{ $t("messages.selectLanguagePlaceholder") }}
+          </option>
+          <option
+            v-for="language in getLocales"
+            :key="language"
+            :value="language"
+          >
+            {{ language }}
+          </option>
+        </select>
+      </div>
+      <router-view />
     </div>
-    <router-view />
-  </div>
+  </VueI18nProvider>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
+import VueI18nProvider from './components/VueI18nProvider';
 
 export default {
+  components: { VueI18nProvider },
   data() {
     return {
       selected: '',
@@ -35,10 +47,12 @@ export default {
   computed: {
     ...mapState({
       currentLanguage: 'currentLanguage',
+      currentLocale: 'currentLocale',
     }),
 
     ...mapGetters({
       getLanguages: 'getLanguages',
+      getLocales: 'getLocales',
     }),
   },
 
@@ -59,7 +73,7 @@ export default {
   color: #2c3e50;
 }
 
-.links{
+.links {
   display: inline-flex;
 }
 
