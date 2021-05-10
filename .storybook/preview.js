@@ -5,7 +5,7 @@ export const globalTypes = {
   locale: {
     name: 'Locale',
     description: 'Internationalization locale',
-    defaultValue: 'en',
+    defaultValue: 'ro',
     toolbar: {
       icon: 'globe',
       items: [
@@ -27,13 +27,16 @@ export const parameters = {
 };
 
 export const decorators = [
-  (_, { globals }) => ({
-    i18n,
-    beforeCreate() {
-      // eslint-disable-next-line no-underscore-dangle
-      this.$root._i18n = this.$i18n;
-      this.$i18n.locale = globals.locale;
-    },
-    template: '<story/>',
-  }),
+  (_, { globals }) => {
+    // Set the locale here, since currently (v6.2.9) Storybook doesn't re-render Vue components,
+    // but the i18n instance is a singleton and the decorator does get executed
+    if (i18n.locale !== globals.locale) {
+      i18n.locale = globals.locale;
+    }
+
+    return {
+      i18n,
+      template: '<story/>',
+    };
+  },
 ];
