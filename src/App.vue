@@ -1,5 +1,4 @@
 <template>
-  <VueI18nProvider v-model="selected" v-slot="{ i18n }">
     <div id="app">
       <div id="nav">
         <ul class="nav-links">
@@ -15,12 +14,12 @@
             </router-link>
           </li>
         </ul>
-        <select v-model="selected" @change="i18n.locale = selected">
+        <select v-model="selected" @change="changeLanguage(selected)">
           <option disabled value="">
             {{ $t("messages.selectLanguagePlaceholder") }}
           </option>
           <option
-            v-for="language in getLocales"
+            v-for="language in getLanguages"
             :key="language"
             :value="language"
           >
@@ -30,15 +29,12 @@
       </div>
       <router-view />
     </div>
-  </VueI18nProvider>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import VueI18nProvider from './components/VueI18nProvider';
 
 export default {
-  components: { VueI18nProvider },
   data() {
     return {
       selected: '',
@@ -47,12 +43,10 @@ export default {
   computed: {
     ...mapState({
       currentLanguage: 'currentLanguage',
-      currentLocale: 'currentLocale',
     }),
 
     ...mapGetters({
       getLanguages: 'getLanguages',
-      getLocales: 'getLocales',
     }),
   },
 

@@ -1,6 +1,20 @@
 import '../node_modules/semantic-ui-css/semantic.css';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import i18n from '../src/i18n/i18nInstance';
+
+export const globalTypes = {
+  locale: {
+    name: 'Locale',
+    description: 'Internationalization locale',
+    defaultValue: 'ro',
+    toolbar: {
+      icon: 'globe',
+      items: [
+        { value: 'en', right: 'en', title: 'English' },
+        { value: 'ro', right: 'ro', title: 'Romanian' },
+      ],
+    },
+  },
+};
 
 export const parameters = {
   actions: { yargTypesRegex: '^on[A-Z].*' },
@@ -10,38 +24,19 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  viewport: {
-    viewports: MINIMAL_VIEWPORTS,
-  },
 };
 
 export const decorators = [
-  (Story, { globals }) => ({
-    i18n,
-    beforeCreate() {
-      // eslint-disable-next-line no-underscore-dangle
-      this.$root._i18n = this.$i18n;
-      this.$i18n.locale = globals.locale;
-    },
-    template: '<story/>',
-  }),
-];
+  (_, { globals }) => {
+    // Set the locale here, since currently (v6.2.9) Storybook doesn't re-render Vue components,
+    // but the i18n instance is a singleton and the decorator does get executed
+    if (i18n.locale !== globals.locale) {
+      i18n.locale = globals.locale;
+    }
 
-export const globalTypes = {
-  locale: {
-    name: 'Locale',
-    description: 'Internationalization locale',
-    defaultValue: 'en',
-    toolbar: {
-      icon: 'globe',
-      items: [
-        { value: 'en', right: ':us:', title: 'English' },
-        { value: 'fr', right: ':fr:', title: 'Français' },
-        { value: 'es', right: ':es:', title: 'Español' },
-        { value: 'zh', right: ':cn:', title: '中文' },
-        { value: 'kr', right: ':kr:', title: '한국어' },
-        { value: 'ro', right: ':ro:', title: 'Romana' },
-      ],
-    },
+    return {
+      i18n,
+      template: '<story/>',
+    };
   },
-};
+];

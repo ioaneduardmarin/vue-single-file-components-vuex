@@ -5,12 +5,7 @@ import NotificationMessage from '../components/NotificationMessage.vue';
 
 Vue.use(VueI18n);
 
-storiesOf('NotificationMessage', module).add('RONotificationMessage', () => ({
+storiesOf('NotificationMessage', module).add('OldNotificationMessage', () => ({
   components: { NotificationMessage },
-  template: '<NotificationMessage type="error">Ro</NotificationMessage>',
-}));
-
-storiesOf('NotificationMessage', module).add('ENNotificationMessage', () => ({
-  components: { NotificationMessage },
-  template: '<NotificationMessage type="error">En</NotificationMessage>',
+  template: '<NotificationMessage type="error">--__--</NotificationMessage>',
 }));
